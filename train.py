@@ -22,12 +22,12 @@ tokenizer, vocab_size = build_tokenizer(train_df)
 training_sentences, training_labels = to_array(train_df, tokenizer)
 testing_sentences, testing_labels = to_array(test_df, tokenizer)
 
-embedding_dim = 64
+embedding_dim = 16
 max_length = training_sentences.shape[1]
 print(embedding_dim, max_length)
 
 model = tf.keras.Sequential([
-    layers.Embedding(vocab_size, embedding_dim, input_length=max_length, mask_zero=True),
+    layers.Embedding(vocab_size, embedding_dim, input_length=max_length),
     layers.GlobalAveragePooling1D(),
     layers.Dense(128, activation=activations.relu),
     layers.Dense(3, activation=activations.softmax)
@@ -38,8 +38,12 @@ model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics
 
 model.summary()
 
-training_labels = utils.to_categorical(training_labels, num_classes=3)
-testing_labels = utils.to_categorical(testing_labels, num_classes=3)
-history = model.fit(training_sentences, training_labels, epochs=100,
-                    validation_data=(testing_sentences, testing_labels), verbose=2)
+training_categorical = utils.to_categorical(training_labels, num_classes=3)
+testing_categorical = utils.to_categorical(testing_labels, num_classes=3)
+print(training_labels)
+print(training_categorical)
+
+print(training_sentences)
+history = model.fit(training_sentences, training_categorical, epochs=100,
+                    validation_data=(testing_sentences, testing_categorical), verbose=2)
 

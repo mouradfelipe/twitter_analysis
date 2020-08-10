@@ -12,7 +12,7 @@ def load_dataframe(path):
 
 def process_dataframe(df):
     # replacing sentiment column with numbers
-    replace_dict = {'negative': -1, 'neutral': 0, 'positive': 1}
+    replace_dict = {'negative': 0, 'neutral': 1, 'positive': 2}
     df['sentiment'] = df['sentiment'].replace(to_replace=replace_dict)
 
     # dropping unnecessary columns
