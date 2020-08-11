@@ -9,31 +9,33 @@ from tensorflow.keras import utils
 from preprocess import \
     load_dataframe, process_dataframe, build_tokenizer, split_dataframe, to_array
 
-path = './dataset/train.csv'
-df = load_dataframe(path)
-print(df.head())
+train_path = './dataset/train.csv'
+test_path = './dataset/test.csv'
+train_df = load_dataframe(train_path)
+test_df = load_dataframe(test_path)
+print(train_df.head())
 
-df = process_dataframe(df)
-print(df.head())
+train_df = process_dataframe(train_df)
+test_df = process_dataframe(test_df)
+print(train_df.head())
 
-train_df, test_df = split_dataframe(df, 0.2)
+# train_df, test_df = split_dataframe(df, 0.2)
 tokenizer, vocab_size = build_tokenizer(train_df)
 
 training_sentences, training_labels = to_array(train_df, tokenizer)
 testing_sentences, testing_labels = to_array(test_df, tokenizer)
 
-embedding_dim = 16
+embedding_dim = 64
 max_length = training_sentences.shape[1]
 print(embedding_dim, max_length)
 
 model = tf.keras.Sequential([
     layers.Embedding(vocab_size, embedding_dim, input_length=max_length),
-    layers.GlobalAveragePooling1D(),
-    layers.Dense(128, activation=activations.relu),
+    layers.Bidirectional(layers.LSTM(32)),
     layers.Dense(3, activation=activations.softmax)
 ])
 
-optimizer = optimizers.Adam(lr=0.1)
+optimizer = optimizers.SGD(lr=0.01)
 model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics=['accuracy'])
 
 model.summary()
@@ -43,7 +45,6 @@ testing_categorical = utils.to_categorical(testing_labels, num_classes=3)
 print(training_labels)
 print(training_categorical)
 
-print(training_sentences)
 history = model.fit(training_sentences, training_categorical, epochs=100,
                     validation_data=(testing_sentences, testing_categorical), verbose=2)
 

@@ -16,7 +16,8 @@ def process_dataframe(df):
     df['sentiment'] = df['sentiment'].replace(to_replace=replace_dict)
 
     # dropping unnecessary columns
-    df = df.drop(labels=['textID', 'selected_text'], axis=1)
+    cols = [col for col in df.columns if col != 'text' and col != 'sentiment']
+    df = df.drop(labels=cols, axis=1)
 
     # filtering empty texts
     df = df.dropna(axis='index')
