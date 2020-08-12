@@ -37,7 +37,7 @@ def build_tokenizer(df):
     tokenizer = Tokenizer(oov_token=oov_tok)
     tokenizer.fit_on_texts(df['text'])
 
-    print(tokenizer.word_index)
+    #print(tokenizer.word_index)
     vocab_size = len(tokenizer.word_index) + 1  # +1 because of oov_tok
     return tokenizer, vocab_size
 
