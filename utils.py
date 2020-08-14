@@ -17,3 +17,22 @@ def load_model_from_json(model_name):
     # load weights into new model
     loaded_model.load_weights(model_name + '.h5')
     return loaded_model
+
+def emoji_reader(text):
+    list_of_words = text.split(' ')
+    return emoji_dict(list_of_words)
+
+def get_emojis():
+    return  ["<3", 'kkk', 'lol','ahhh','xD','hahaha']
+
+def emoji_dict(list_of_words):
+    list_emojis = get_emojis()
+    list = [0]*len(list_emojis)
+    for word in list_of_words:
+        for emoji in list_emojis:
+            if emoji in word:
+                index = list_emojis.index(emoji)
+                list[index]+=1
+    list = [[item] for item in list] # Adaptei para rodar no pandas
+
+    return dict(zip(list_emojis,list))

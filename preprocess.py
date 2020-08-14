@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from utils import emoji_reader,get_emojis
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -23,6 +24,13 @@ def process_dataframe(df):
     df = df.dropna(axis='index')
 
     # other filters here
+    for emoji in get_emojis():
+        df[emoji] = 0
+        
+    for index,row in df.iterrows():
+        dict = emoji_reader(row.get('text'))
+        df.update(dict)
+
     return df
 
 
