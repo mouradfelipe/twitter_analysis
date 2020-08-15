@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from utils import emoji_reader,get_emojis
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -23,11 +24,26 @@ def process_dataframe(df):
     df = df.dropna(axis='index')
 
     # other filters here
+
+    return df
+
+def load_emoji_dataframe(dataframe):
+
+    df = pd.DataFrame()
+
+    for emoji in get_emojis():
+        df[emoji] = 0
+
+    for _,row in dataframe.iterrows():
+        dict = emoji_reader(row.get('text'))
+        df = df.append(dict,ignore_index = True)
+        
     return df
 
 
+
 def split_dataframe(df, frac):
-    test = df.sample(frac=frac, random_state=200)
+    test = df.sample(frac=frac)
     train = df.drop(test.index)
     return train, test
 
@@ -37,16 +53,14 @@ def build_tokenizer(df):
     tokenizer = Tokenizer(oov_token=oov_tok)
     tokenizer.fit_on_texts(df['text'])
 
-    #print(tokenizer.word_index)
+    # print(tokenizer.word_index)
     vocab_size = len(tokenizer.word_index) + 1  # +1 because of oov_tok
     return tokenizer, vocab_size
 
 
 def to_array(df, tokenizer):
-    padding_type = 'post'
-
     tokens = tokenizer.texts_to_sequences(df['text'])
-    padded = pad_sequences(tokens, padding=padding_type)
+    padded = pad_sequences(tokens, maxlen=32)
 
     sentences = np.array(padded)
     labels = np.array(df['sentiment'])
