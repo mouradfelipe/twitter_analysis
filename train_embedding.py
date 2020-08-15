@@ -41,13 +41,13 @@ max_length = training_sentences.shape[1]
 print(embedding_dim, max_length)
 
 model = tf.keras.Sequential([
-    layers.Embedding(vocab_size, embedding_dim, input_length=max_length),
+    layers.Embedding(vocab_size, 200, input_length=max_length),
     layers.Bidirectional(layers.LSTM(embedding_dim)),
     layers.Dense(1024, activation=activations.relu),
     layers.Dense(3, activation=activations.softmax)
 ])
 
-optimizer = optimizers.SGD(lr=0.01)
+optimizer = optimizers.SGD(lr=0.001)
 model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics=['accuracy'])
 
 model.summary()
@@ -57,9 +57,9 @@ testing_categorical = utils.to_categorical(testing_labels, num_classes=3)
 print(len(training_labels))
 print(len(training_categorical))
 
-history = model.fit(training_sentences, training_categorical, epochs=10,
+history = model.fit(training_sentences, training_categorical, epochs=100,
                     validation_data=(testing_sentences, testing_categorical), verbose=2)
 save_model_to_json(model, './results/neural_network_embedding')
 
-with open('./results/embedding.data', 'wb') as file:
+with open('results/embedding.data', 'wb') as file:
     pickle.dump(history.history, file)

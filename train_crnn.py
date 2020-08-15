@@ -36,8 +36,8 @@ tokenizer, vocab_size = build_tokenizer(train_df)
 
 word_length = 200
 embedding_vector = {}
-with open('./dataset/glove.twitter.27B.200d.txt') as filehandler:
-    for line in tqdm(filehandler):
+with open('./dataset/glove.twitter.27B.200d.txt') as file:
+    for line in tqdm(file):
         value = line.split(' ')
         word = value[0]
         coef = np.array(value[1:], dtype='float32')
@@ -69,7 +69,7 @@ model = tf.keras.Sequential([
     layers.Dense(3, activation=activations.softmax)
 ])
 
-optimizer = optimizers.SGD(lr=0.01)
+optimizer = optimizers.SGD(lr=0.001)
 model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics=['accuracy'])
 
 model.summary()
@@ -79,10 +79,10 @@ testing_categorical = utils.to_categorical(testing_labels, num_classes=3)
 print(len(training_labels))
 print(len(training_categorical))
 
-history = model.fit(training_sentences, training_categorical, epochs=10,
+history = model.fit(training_sentences, training_categorical, epochs=100,
                     validation_data=(testing_sentences, testing_categorical), verbose=2)
 save_model_to_json(model, './results/neural_network_crnn')
 
-with open('./results/crnn.data', 'wb') as file:
+with open('results/crnn.data', 'wb') as file:
     # store the data as binary data stream
     pickle.dump(history.history, file)

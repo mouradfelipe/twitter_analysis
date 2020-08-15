@@ -1,4 +1,6 @@
 from tensorflow.keras.models import model_from_json
+from wordcloud import WordCloud, STOPWORDS 
+import matplotlib.pyplot as plt
 
 def save_model_to_json(model, model_name):
     # serialize model to JSON
@@ -17,3 +19,58 @@ def load_model_from_json(model_name):
     # load weights into new model
     loaded_model.load_weights(model_name + '.h5')
     return loaded_model
+
+
+def emoji_reader(text):
+    list_of_words = text.split(' ')
+    return emoji_dict(list_of_words)
+
+
+def get_emojis():
+    return ["<3", 'smh', 'lol', 'ahhh', 'xD', 'hahaha', 'lmfao']
+
+
+def emoji_dict(list_of_words):
+    list_emojis = get_emojis()
+    list = [0]*len(list_emojis)
+    for word in list_of_words:
+        for emoji in list_emojis:
+            if emoji in word:
+                index = list_emojis.index(emoji)
+                list[index] += 1
+
+    return dict(zip(list_emojis, list))
+
+
+def plot_word_cloud(series, file_name=''):
+    comment_words = '' 
+    stopwords = set(STOPWORDS) 
+
+    for val in series.tolist():
+        # typecaste each val to string
+        val = str(val) 
+    
+        # split the value 
+        tokens = val.split() 
+        
+        # Converts each token into lowercase 
+        for i in range(len(tokens)): 
+            tokens[i] = tokens[i].lower() 
+        
+        comment_words += " ".join(tokens)+" "
+    
+    wordcloud = WordCloud(width=800, height=800,
+                          background_color='white',
+                          stopwords=stopwords,
+                          min_font_size=10).generate(comment_words)
+  
+    # plot the WordCloud image                        
+    plt.figure(figsize=(8, 8), facecolor=None)
+    plt.imshow(wordcloud) 
+    plt.axis("off") 
+    plt.tight_layout(pad=0)
+    if file_name:
+        file_name += '.png'
+        plt.savefig(file_name, format='png')
+    plt.show() 
+
