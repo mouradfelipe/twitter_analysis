@@ -24,7 +24,7 @@ class TextInterpreterNN:
         self.model = models.Model(self.text_interpreter_input, out)
 
     def get_model(self):
-        optimizer = optimizers.SGD(lr=0.001)
+        optimizer = optimizers.SGD(lr=0.01)
         self.model.compile(loss=losses.categorical_crossentropy,
                            optimizer=optimizer, metrics=['accuracy'])
         return self.model
