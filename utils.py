@@ -33,6 +33,6 @@ def emoji_dict(list_of_words):
             if emoji in word:
                 index = list_emojis.index(emoji)
                 list[index]+=1
-    list = [[item] for item in list] # Adaptei para rodar no pandas
+    #list = [[item] for item in list] # Adaptei para rodar no pandas
 
     return dict(zip(list_emojis,list))

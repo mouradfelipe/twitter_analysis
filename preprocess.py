@@ -24,14 +24,22 @@ def process_dataframe(df):
     df = df.dropna(axis='index')
 
     # other filters here
-    for emoji in get_emojis():
-        df[emoji] = 0
-        
-    for index,row in df.iterrows():
-        dict = emoji_reader(row.get('text'))
-        df.update(dict)
 
     return df
+
+def load_emoji_dataframe(dataframe):
+
+    df = pd.DataFrame()
+
+    for emoji in get_emojis():
+        df[emoji] = 0
+
+    for _,row in dataframe.iterrows():
+        dict = emoji_reader(row.get('text'))
+        df = df.append(dict,ignore_index = True)
+        
+    return df
+
 
 
 def split_dataframe(df, frac):
