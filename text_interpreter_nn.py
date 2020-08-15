@@ -13,8 +13,8 @@ class TextInterpreterNN:
         self.text_interpreter_input = layers.Input(shape=(input_size,),name='main_input')
         self.text_interpreter_model = layers.Embedding(vocab_size,embedding_dim) (self.text_interpreter_input)
         self.text_interpreter_model = layers.Bidirectional(layers.LSTM(embedding_dim)) (self.text_interpreter_model)
-        self.text_interpreter_model = layers.Dense(64, activation= activations.linear)(self.text_interpreter_model)
-        out = layers.Dense(3, activation=activations.softmax)(self.text_interpreter_model)
+        #self.text_interpreter_model = layers.Dense(64, activation= activations.linear)(self.text_interpreter_model)
+        #out = layers.Dense(3, activation=activations.softmax)(self.text_interpreter_model)
         self.model = models.Model(self.text_interpreter_input,out)
 
     
@@ -24,12 +24,12 @@ class TextInterpreterNN:
         return self.model
 
     def insert_emoji_feature(self,input_size):
-        #input_model2 = len(train_df_emoji.columns.to_list())
+
         input = layers.Input(shape=(input_size,),name='emoji_feature_input')
-        feature_model = layers.Dense(64,activation=activations.linear)(input)
 
-        concatenated = concatenate([self.text_interpreter_model, feature_model])
+        concatenated = concatenate([self.text_interpreter_model, input])        
+        feature_model = layers.Dense(64,activation=activations.linear)(concatenated)
 
-        out = layers.Dense(3, activation=activations.softmax)(concatenated)
+        out = layers.Dense(3, activation=activations.softmax)(feature_model)
         self.model = models.Model([self.text_interpreter_input,input],out)
 
