@@ -65,3 +65,24 @@ def to_array(df, tokenizer):
     sentences = np.array(padded)
     labels = np.array(df['sentiment'])
     return sentences, labels
+
+def classify_sentiment(array):
+    list = ['negative','neutral','positive']
+    response_list = []
+    
+    for item in array:
+        index = np.argmax(item)
+        response_list.append(list[index])
+    
+    return response_list
+
+def sample_text_to_array(df,tokenizer):
+    
+    padding_type = 'post'
+
+    tokens = tokenizer.texts_to_sequences(df['text'])
+    padded = pad_sequences(tokens, padding=padding_type)
+
+    sentences = np.array(padded)
+
+    return sentences
