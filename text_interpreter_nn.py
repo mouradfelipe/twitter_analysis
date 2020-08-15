@@ -17,8 +17,10 @@ class TextInterpreterNN:
         out = layers.Dense(3, activation=activations.softmax)(self.text_interpreter_model)
         self.model = models.Model(self.text_interpreter_input,out)
 
-    
-    def get_model(self):
+
+    def get_model(self,model_to_compile=None):
+        if model_to_compile:
+            self.model = model_to_compile
         optimizer = optimizers.SGD(lr=0.01)
         self.model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics=['accuracy'])
         return self.model

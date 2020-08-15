@@ -26,7 +26,7 @@ training_sentences, training_labels = to_array(train_df, tokenizer)
 testing_sentences, testing_labels = to_array(test_df, tokenizer)
 
 embedding_dim = 64
-max_length = training_sentences.shape[1]
+#max_length = training_sentences.shape[1]
 
 input_size = 3
 input_emoji = len(train_df_emoji.columns.to_list())
