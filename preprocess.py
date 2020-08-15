@@ -27,7 +27,7 @@ def process_dataframe(df):
 
 
 def split_dataframe(df, frac):
-    test = df.sample(frac=frac, random_state=200)
+    test = df.sample(frac=frac)
     train = df.drop(test.index)
     return train, test
 
@@ -37,16 +37,14 @@ def build_tokenizer(df):
     tokenizer = Tokenizer(oov_token=oov_tok)
     tokenizer.fit_on_texts(df['text'])
 
-    #print(tokenizer.word_index)
+    # print(tokenizer.word_index)
     vocab_size = len(tokenizer.word_index) + 1  # +1 because of oov_tok
     return tokenizer, vocab_size
 
 
 def to_array(df, tokenizer):
-    padding_type = 'post'
-
     tokens = tokenizer.texts_to_sequences(df['text'])
-    padded = pad_sequences(tokens, padding=padding_type)
+    padded = pad_sequences(tokens, maxlen=32)
 
     sentences = np.array(padded)
     labels = np.array(df['sentiment'])
