@@ -12,6 +12,7 @@ test_path = './dataset/test.csv'
 train_df = load_dataframe(train_path)
 test_df = load_dataframe(test_path)
 
+
 train_df = process_dataframe(train_df)
 test_df = process_dataframe(test_df)
 

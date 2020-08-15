@@ -14,7 +14,7 @@ class TextInterpreterNN:
         self.text_interpreter_model = layers.Embedding(vocab_size,embedding_dim) (self.text_interpreter_input)
         self.text_interpreter_model = layers.Bidirectional(layers.LSTM(embedding_dim)) (self.text_interpreter_model)
         #self.text_interpreter_model = layers.Dense(64, activation= activations.linear)(self.text_interpreter_model)
-        #out = layers.Dense(3, activation=activations.softmax)(self.text_interpreter_model)
+        out = layers.Dense(3, activation=activations.softmax)(self.text_interpreter_model)
         self.model = models.Model(self.text_interpreter_input,out)
 
     
