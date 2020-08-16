@@ -28,7 +28,7 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
  * train.csv : Arquivo csv utilizado para treinamento da rede com seus devidos labels divididos em negative,neutral e positive.
  * test.csv  : Arquivo csv utilizado para teste de validação da rede com seus devidos labels divididos em negative,neutral e positive.
  * trump.csv : Arquivo csv obtido pela API do Twitter utilizando postagens relacionadas ao candidato a presidencia Donald Trump.
- * Biden.csv : Arquivo csv obtido pela API do Twitter utilizando postagens relacionadas ao candidato a presidencia Joe Biden.
+ * biden.csv : Arquivo csv obtido pela API do Twitter utilizando postagens relacionadas ao candidato a presidencia Joe Biden.
  
  
 ## Breve descrição a respeito do código
