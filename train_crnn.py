@@ -69,7 +69,7 @@ model = tf.keras.Sequential([
     layers.Dense(3, activation=activations.softmax)
 ])
 
-optimizer = optimizers.SGD(lr=0.001)
+optimizer = optimizers.SGD(lr=0.01)
 model.compile(loss=losses.categorical_crossentropy, optimizer=optimizer, metrics=['accuracy'])
 
 model.summary()
