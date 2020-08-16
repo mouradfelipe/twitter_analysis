@@ -3,12 +3,12 @@
 Projeto desenvolvido na prática de CT-213 pelo grupo:
 
 * Adriano Soares
-* Felipe Mourad
 * Adrisson Samersla
+* Felipe Mourad
 
 ## Inicialização
 
-Primeiramente, garanta que bibliotecas como tensorflow, matplotlib e wordcloud (caso queira rodar o `print.py`)
+Primeiramente, garanta que bibliotecas como tensorflow, matplotlib e wordcloud (caso queira rodar o `print.py`) estejam instaladas.
 
 Depois, para executar e visualizar os dados relativos a Trump e Biden basta rodar `python main.py`
 
@@ -29,17 +29,18 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
  * trump.csv : Arquivo csv obtido pela API do Twitter utilizando postagens relacionadas ao candidato a presidencia Donald Trump.
  * biden.csv : Arquivo csv obtido pela API do Twitter utilizando postagens relacionadas ao candidato a presidencia Joe Biden.
  
+ Há ainda um dataset que não foi commitado. Trata-se do conjunto de dados pré-treinados do GloVe, disponível no link: http://nlp.stanford.edu/data/glove.twitter.27B.zip
  
 ## Breve descrição a respeito do código
 
 `preprocess.py`  
  
- Responsável por realizar todo o processamento dos dados adaptando-os para os inputs das redes neurais e para adaptar os dataframes seja através de filtragem de colunas, construção de tokens das palavras ou transformações dos dataframes em arrays.
+ Responsável por realizar todo o processamento dos dados, adaptando-os para os inputs das redes neurais. Processamentos realizados: filtragem de colunas, construção de tokens das palavras, transformações dos dataframes em arrays.
  
  
 `text_interpreter_nn.py`
  
- Classe que gera a arquitetura de rede neural básica RNN, entretanto com o método `insert_emoji_feature` ela incrementa com algumas gírias recorrentes utilizadas no Twitter. A arquitetura gerada por esta classe gerou resultados satisfatórios. Seu treinamento ocorreu no arquivo `train_extraction.py`.
+ Classe que gera a arquitetura de rede neural básica RNN; entretanto, com o método `insert_emoji_feature`, ela é incrementada com algumas gírias recorrentes utilizadas no Twitter. A arquitetura gerada por esta classe gerou resultados satisfatórios. Seu treinamento ocorreu no arquivo `train_extraction.py`.
  
  
 `print.py`
@@ -53,17 +54,17 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
  
  Os arquivos train*.py foram utilizados para treinar a rede utilizando diversas metodologias distintas de redes neurais. Sendo descritas abaixo.
  
+ * `train_embedding.py`: Treinamento utilizando apenas o embedding. Obs: As demais também usaram embedding, porém com outros artifícios (lista incremental).
+ * `train_extraction.py`: Utilizou o conceito de feature extraction para ajudar a aumentar a acurácia da rede.
+ * `train_glove.py`: Utilizou o conceito de transfer learning carregando a arquitetura GloVe de rede neural.
  * `train_crnn.py` : Treinamento com Convolutional Recurrent Neural Network.
- * `train_embedding.py`: Treinamento utilizando apenas o embedding. Obs: As demais também usaram embedding mas outros artifícios também.
- * `train_extraction.py`: Utilizou o conceito de extraction features para ajudar a aumentar a acurácia da rede.
- * `train_glove.py`: Utilizou apenas o conceito de transfer learning carregando a arquitetura GloVe de rede neural.
 
- No relatório, realizamos a comparação entre estas arquiteturas, as que apresentaran melhores desempenhos foram a GloVe e a Extraction.
+ No relatório, realizamos a comparação entre estas arquiteturas. As que apresentaran melhores desempenhos foram GloVe e Extraction.
  
  `generate_images.py`
   
-  Arquivo responsável por gerar o benchmark entre as redes, sendo de extrema importância no projeto para selecionar qual a arquitetura de rede neural utilizar a fim de obter o melhor desempenho.
+  Arquivo responsável por gerar o benchmark entre as redes, sendo de extrema importância no projeto para selecionar qual a arquitetura de rede neural a utilizar-se para obter o melhor desempenho.
  
  `utils.py`
  
- Arquivo que contém algumas funções uteis e que foram utilizadas no código.
+ Arquivo que contém algumas funções úteis que foram utilizadas no código.
