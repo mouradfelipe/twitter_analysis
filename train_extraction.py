@@ -25,7 +25,7 @@ tokenizer, vocab_size = build_tokenizer(train_df)
 
 word_length = 200
 embedding_vector = {}
-with open('./dataset/glove.twitter.27B.200d.txt') as file:
+with open('./dataset/glove.twitter.27B.200d.txt', encoding="utf8") as file:
     for line in tqdm(file):
         value = line.split(' ')
         word = value[0]

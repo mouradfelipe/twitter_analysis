@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from utils import emoji_reader,get_emojis
+from utils import emoji_reader, get_emojis
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -27,19 +27,18 @@ def process_dataframe(df):
 
     return df
 
-def load_emoji_dataframe(dataframe):
 
+def load_emoji_dataframe(dataframe):
     df = pd.DataFrame()
 
     for emoji in get_emojis():
         df[emoji] = 0
 
-    for _,row in dataframe.iterrows():
+    for _, row in dataframe.iterrows():
         dict = emoji_reader(row.get('text'))
-        df = df.append(dict,ignore_index = True)
-        
-    return df
+        df = df.append(dict, ignore_index=True)
 
+    return df
 
 
 def split_dataframe(df, frac):
@@ -66,19 +65,33 @@ def to_array(df, tokenizer):
     labels = np.array(df['sentiment'])
     return sentences, labels
 
+
 def classify_sentiment(array):
-    list = ['negative','neutral','positive']
+    list = ['negative', 'neutral', 'positive']
     response_list = []
-    
+
     for item in array:
         index = np.argmax(item)
         response_list.append(list[index])
-    
+
     return response_list
 
-def sample_text_to_array(df,tokenizer):
-    
-    padding_type = 'post'
+
+def calculate_avgs(array):
+    countNeg = countPos = countNeu = 0
+    for item in array:
+        if item == "negative":
+            countNeg += 1
+        elif item == "neutral":
+            countNeu += 1
+        else:
+            countPos += 1
+    total = countNeu + countNeg + countPos
+    return [countNeg / total, countNeu / total, countPos / total]
+
+
+def sample_text_to_array(df, tokenizer):
+    padding_type = 'pre'
 
     tokens = tokenizer.texts_to_sequences(df['text'])
     padded = pad_sequences(tokens, padding=padding_type)
