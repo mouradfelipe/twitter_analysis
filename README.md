@@ -12,6 +12,8 @@ Primeiramente, garanta que bibliotecas como tensorflow, matplotlib e wordcloud (
 
 Depois, para executar e visualizar os dados relativos a Trump e Biden basta rodar `python main.py`
 
+OBS: Para calcular os dados médios de aprovação do Trump, favor commitar as linhas relativas ao Joe Biden, caso contrário fazer o oposto.
+
 ## Pasta results
 
 Temos diversas redes neurais previamente treinadas, com learning rates distintas. A estrutura é sempre a mesma
@@ -19,7 +21,7 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
 `lr<valor da learning rate>_neural_network_<estrutura>.h5`
 
 
-## dataset
+## Pasta dataset
 
  Para utilizar os dados basta obtê-los da pasta dataset. Os arquivos foram descritos abaixo:
  
