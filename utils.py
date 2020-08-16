@@ -74,3 +74,15 @@ def plot_word_cloud(series, file_name=''):
         plt.savefig(file_name, format='png')
     plt.show() 
 
+def print_twitter_sentiment(avr_list,candidate):
+    positive = avr_list[2]
+    neutral = avr_list[1]
+    negative = avr_list[0]
+    positive_percentage = round(positive*100,2)
+    negative_percentage = round(negative*100,2)
+    neutral_percentage = round(neutral*100,2)
+    print("\n|    Predição ",candidate)
+    print("|   por comentários no Twitter")
+    print("| Comentários Positivos : ",positive_percentage,"%")
+    print("| Comentários Neutros   : ",neutral_percentage,"%")
+    print("| Comentários Negativos : ",negative_percentage,"%\n")
