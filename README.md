@@ -12,7 +12,6 @@ Primeiramente, garanta que bibliotecas como tensorflow, matplotlib e wordcloud (
 
 Depois, para executar e visualizar os dados relativos a Trump e Biden basta rodar `python main.py`
 
-OBS: Para calcular os dados médios de aprovação do Trump, favor commitar as linhas relativas ao Joe Biden, caso contrário fazer o oposto.
 
 ## Pasta results
 
@@ -40,7 +39,7 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
  
 `text_interpreter_nn.py`
  
- Classe que gera a arquitetura de rede neural básica CRNN, entretanto com o método `insert_emoji_feature` ela incrementa com algumas gírias recorrentes utilizadas no Twitter. A arquitetura gerada por esta classe gerou resultados satisfatórios. Seu treinamento ocorreu no arquivo `train_extraction.py`.
+ Classe que gera a arquitetura de rede neural básica RNN, entretanto com o método `insert_emoji_feature` ela incrementa com algumas gírias recorrentes utilizadas no Twitter. A arquitetura gerada por esta classe gerou resultados satisfatórios. Seu treinamento ocorreu no arquivo `train_extraction.py`.
  
  
 `print.py`
