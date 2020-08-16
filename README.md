@@ -51,6 +51,7 @@ Temos diversas redes neurais previamente treinadas, com learning rates distintas
  ![image](https://sebastianraschka.com/images/blog/2014/twitter-wordcloud/my_twitter_wordcloud_2_small.jpg)
  
 `train_*.py`
+ 
  Os arquivos train*.py foram utilizados para treinar a rede utilizando diversas metodologias distintas de redes neurais. Sendo descritas abaixo.
  
  * `train_crnn.py` : Treinamento com Convolutional Recurrent Neural Network.
